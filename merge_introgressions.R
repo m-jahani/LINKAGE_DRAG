@@ -402,19 +402,23 @@ rm(DONE_part1,
 data.frame(anc=c("1","2"),
            donor=c("ANN","OTHER"))-> anc_donor
 
-INTREGRESSION_SAM %>% 
-  group_by(anc,CHR,new_start,new_end) %>%
-  tally() %>%
-  ungroup() %>%
-  filter(n > 15) %>% #5 precent frequency
-  select(-n) %>% 
-  left_join(.,anc_donor)  %>% 
-  select(donor,
-         CHR,
-         start = new_start,
-         end = new_end)  -> INTREGRESSION_SAM_maf0.5
-
-fwrite(INTREGRESSION_SAM_maf0.3,"/Users/mojtabajahani/Documents/Projects/Linkage_drag/INTREGRESSION_SAM_maf0.5.csv",
-       sep = ",",
-       quote = F,
-       col.names = T)
+  INTREGRESSION_SAM %>% 
+    group_by(anc,CHR,new_start,new_end) %>%
+    tally() %>%
+    ungroup() %>%
+    filter(n > 15) %>% #5 precent frequency
+    select(-n) %>% 
+    left_join(.,anc_donor)  %>% 
+    mutate(ID = paste0(CHR,":",new_start,"-",new_end,"_",donor)) %>%
+    select(CHR,
+           start = new_start,
+           end = new_end,
+           ID)  -> INTREGRESSION_SAM_maf0.5
+  
+  fwrite(INTREGRESSION_SAM_maf0.5,"/Users/mojtabajahani/Documents/Projects/Linkage_drag/INTREGRESSION_SAM_maf0.5.csv",
+         sep = ",",
+         quote = F,
+         col.names = T)
+  
+  rm(anc_donor,
+     INTREGRESSION_SAM)
