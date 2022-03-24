@@ -415,8 +415,8 @@ data.frame(anc=c("1","2"),
            end = new_end,
            ID)  -> INTREGRESSION_SAM_maf0.5
   
-  fwrite(INTREGRESSION_SAM_maf0.5,"/Users/mojtabajahani/Documents/Projects/Linkage_drag/INTREGRESSION_SAM_maf0.5.csv",
-         sep = ",",
+  fwrite(INTREGRESSION_SAM_maf0.5,"/Users/mojtabajahani/Documents/Projects/Linkage_drag/INTREGRESSION_SAM_maf0.5",
+         sep = "\t",
          quote = F,
          col.names = T)
   
