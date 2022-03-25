@@ -422,3 +422,8 @@ data.frame(anc=c("1","2"),
   
   rm(anc_donor,
      INTREGRESSION_SAM)
+
+    MARKER <- "/DATA/home/mjahani/LINKADE_DRAG/GP/Annuus.ann_fullsam.tranche90_snps_bi_AN50_beagle_AF99.maf0.03_rrBLUP.in"
+    PHENOTYPE <- "/DATA/home/mjahani/LINKADE_DRAG/GP/phenotype_common_georgia_corrected.csv"
+    trait <- 1
+    SAVE_DIR <-  "/DATA/home/mjahani/LINKADE_DRAG/GP/result"
