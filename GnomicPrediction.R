@@ -3,7 +3,7 @@
 
 library(rrBLUP)
 library(data.table)
-library(tidyverse)
+library(dplyr)
 
 #########################################################Input data#########################################################
 
