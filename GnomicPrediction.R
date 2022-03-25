@@ -33,7 +33,7 @@ SNP_list <- fread(SNPs,
 phenotype %>% 
   colnames() -> TRAIT_ID
 
-for (trait in 1:4) {
+for (trait in 1:length(TRAIT_ID)) {
   
 GP_MODEL <- mixed.solve(phenotype[,trait], #phenotyoic data
                         Z=Markers_impute, #marker data
