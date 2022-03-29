@@ -35,6 +35,7 @@ SNP_GENE <- foreach(i=1:nrow(BED), .combine='rbind', .errorhandling='stop') %dop
 
 SNPS %>%
   left_join(.,SNP_GENE) %>%
+  arrange(CHR,POS) %>%
   fwrite(args[3],
          col.names = F,
          sep = "\t",
