@@ -18,5 +18,6 @@ fread(INTFRQ,
     fwrite(args[3],
            col.names = T,
            quote = F,
-           sep = "\t")
+           sep = "\t",
+           na = "NA")
     
