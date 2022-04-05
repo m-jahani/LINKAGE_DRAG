@@ -4,9 +4,9 @@ library(cowplot)
 library(PNWColors)
 library(ggbeeswarm)
 
-
-
-fread("/Users/mojtabajahani/Documents/Projects/Linkage_drag/permutation_introg_effect/BLUP_average_permutation_and_realdata_result") %>% 
+PERMUTAION <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/permutation_introg_effect/P_oulier_permutation_and_realdata_result"
+SAVE_DIR <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/permutation_introg_effect"
+fread(PERMUTAION) %>% 
   gather(TRAIT,VALUE,1:46) %>%
   mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
   mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
@@ -101,7 +101,7 @@ DATA %>% filter(DATA == "REAL") %>% full_join(.,P_VALUE) -> P_VALUE
 #     annotate("rect",xmin=14.5,xmax=16.5,ymin=min(plot_DATA$MEAN),ymax=max(plot_DATA$MEAN),fill=pnw_palette("Winter",4)[1],alpha=0.3) 
 
 
-DATA %>% distinct(SOURCE,INTROGRESSIONS) -> INTRO
+DATA %>% distinct(SOURCE,INTROGRESSIONS,TYPE) -> INTRO
 
 for (i in 1:nrow(INTRO)) {
   DATA %>% 
@@ -125,7 +125,7 @@ for (i in 1:nrow(INTRO)) {
     scale_color_manual(values = pnw_palette("Bay",8)[c(4,6,8)],
                        name="Test",
                        labels=c("No Significant difference","Significantly larger","Significantly smaller"))
-    ggsave(paste0("/Users/mojtabajahani/Documents/Projects/Linkage_drag/permutation_introg_effect/",INTRO[i,2],"_",INTRO[i,1],".pdf"))
+    ggsave(paste0(SAVE_DIR,"/",INTRO[i,3],"_",INTRO[i,2],"_",INTRO[i,1],".pdf"))
   
   rm(PERMUTATION_POINTS,ACTUAL_POINTS)
   
