@@ -1,4 +1,5 @@
 #!bin/bash
+#the conversion process was looped over each sample because the software consumes tons of RAM
 VCF=$1
 bcftools query -l $VCF >${VCF%%vcf}sample_list
 
