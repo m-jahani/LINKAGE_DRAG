@@ -116,6 +116,7 @@ for(DONOR in 1:length(DONORS)){#donor loops start
 RESULT %>%
   arrange(as.numeric(chr_num),
           as.numeric(start)) %>%
+  filter(ID != "dummy:1-1000") %>% 
   fwrite(paste0(SAVE_DIR,
                 "/SAM_introgression_donor_",
                 as.character(DONORS[DONOR]),
