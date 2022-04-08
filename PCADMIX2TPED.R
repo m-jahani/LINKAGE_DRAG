@@ -4,8 +4,9 @@ library(tibble)
 library(data.table)
 
 
-options(scipen = 99999)
+options(scipen = 99999) #avoid scientific number
 
+args = commandArgs(trailingOnly = TRUE)
 
 CHR_LENGTH_FILE <- args[1] #"/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/HA412v2_chromosome.txt"
 PC_ADMIX <- args[2]#"/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/pcadmix.xxx.regions.txt"
