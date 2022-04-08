@@ -34,6 +34,15 @@ data.frame(start=seq(1,as.numeric(CHR_LENGTH[i,2]),1000)) %>%
 
 rm(CHR_LENGTH)
 
+RANGES %>% 
+  rbind(.,
+        data.frame(start=1, #dummy interval for avoid stopping script by samples without retrogression
+                   end=1000,
+                   chr="dummy",
+                   chr_num = 18,
+                   cM = 0,
+                   ID = "dummy:1-1000")) -> RANGES
+
 #sort and write 1kb intervals
 RANGES %>%
   arrange(as.numeric(chr_num),
@@ -46,14 +55,6 @@ RANGES %>%
          col.names = F,
          quote = F)
 
-#sort 1kb intervals and make ID column 
-RANGES %>%
-  arrange(as.numeric(chr_num),
-          as.numeric(start)) %>%
-  select(ID,
-         cM,
-         start) -> RANGES
-  
 # read PC admix result
 fread(PC_ADMIX) %>% 
   separate(hap, 
@@ -103,14 +104,14 @@ for(DONOR in 1:length(DONORS)){#donor loops start
            sep = " ",
            col.names = F,
            quote = F)
-#four first column of the final resulr  
-RANGES %>% 
-   separate(ID, into = c("chr","start_end"), sep = ":", remove = F) %>%
-   mutate(chr_num = as.numeric(gsub("Ha412HOChr","",chr))) %>%
-   select(chr_num,
-          ID,
-          cM,
-          start) ->  RESULT
+
+#four first column of the final result  
+  RANGES %>% 
+    select(chr_num,
+           ID,
+           cM,
+           start) ->  RESULT
+  
 #write map file
 RESULT %>%
   arrange(as.numeric(chr_num),
@@ -123,7 +124,7 @@ RESULT %>%
          col.names = F,
          quote = F)
                        
-for (SAMPL in length(SAMPLES):1) { #samples loop start
+for (SAMPL in 1:length(SAMPLES)) { #samples loop start
   for (HAPLO in 1:length(HAPLOTYPES)) { #haplotype loop start
 #introgressions for each donor, sample and haplotype
   INTROG_SAMPLE %>% 
@@ -136,6 +137,10 @@ for (SAMPL in length(SAMPLES):1) { #samples loop start
     select(CHR,
            start,
            end) %>% 
+      rbind(.,
+            data.frame(CHR = "dummy",
+                       start = 1, #dummy interval for avoid stopping script by samples without retrogression
+                       end=1000)) %>%
     fwrite(paste0(SAVE_DIR,
                   "/",
                   SAMPLES[SAMPL],
@@ -226,6 +231,7 @@ RESULT %>%
   pull(value) -> column_list
 
 RESULT %>%
+  filter(ID != "dummy:1-1000") %>%
   select(chr_num,
          ID,
          cM,
