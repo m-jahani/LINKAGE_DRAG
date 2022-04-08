@@ -19,7 +19,7 @@ save_dir <- args[4]
 ben_treshold_0.1_annuua <- 4.792041
 ben_treshold_0.1_2ndgermplasm <- 2.880814
 
-gsub(".ps","",gsub("/Users/mojtabajahani/Downloads/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1)) -> TRAIT
+gsub(".ps","",gsub("/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1)) -> TRAIT
 
 # ben_treshold_0.1_annuua <- 2
 # ben_treshold_0.1_2ndgermplasm <- 1
