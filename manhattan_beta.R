@@ -39,7 +39,7 @@ fread(as.character(pheno1),
              remove = T) %>%
   mutate(BP = as.numeric(START)) %>%
   mutate(CHR = gsub("Ha412HOChr","CH",CHR)) %>%
-  mutate(PL=ifelse(Beta>=0,(log10(P)*-1),log10(P))) %>%
+  mutate(PL=ifelse(Beta>=0,(log10(P)),log10(P)*-1)) %>%
   mutate(Donor = pheno1_name) %>% 
     select(Donor,
            CHR,
@@ -115,16 +115,17 @@ max(don$PL)-> MAXLP
 min(don$PL)-> MINLP
 max(don$BPcum)-> MAXPOS
 min(don$BPcum)-> MINPOS
-  
+ifelse(MINLP> ben_treshold_0.1_annuua*-1,ben_treshold_0.1_annuua*-1,MINLP) -> samllest_y 
+ifelse(MAXLP > ben_treshold_0.1_annuua,ben_treshold_0.1_annuua,MAXLP) -> largest_y
   
 ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
   
   # Show all points
-  geom_point(size=1) + #alpha=0.8, 
+  geom_point(size=1) + #data=filter(don,abs(PL)>1),
   scale_color_manual(values = c("#FF8000", "#3399FF")) + 
   #custom X axis:
   scale_x_continuous(label = axisdf$CHR, breaks= axisdf$center ) +
-  scale_y_continuous(breaks = seq(floor(min(don$PL)), ceiling(max(don$PL)), by = 2)) +
+  scale_y_continuous(breaks = seq(floor(samllest_y), ceiling(largest_y), 2)) +
   geom_hline(yintercept=as.numeric(ben_treshold_0.1_annuua), linetype="dashed",color = "red", size=0.2) +
   geom_hline(yintercept=as.numeric(ben_treshold_0.1_2ndgermplasm), linetype="dashed",color = "green", size=0.2) +
   geom_hline(yintercept=as.numeric(ben_treshold_0.1_annuua)*-1, linetype="dashed",color = "red", size=0.2) +
@@ -139,8 +140,8 @@ ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
   annotate("rect", xmin=as.numeric(CHR_Boundary[7,1]), xmax=as.numeric(CHR_Boundary[7,2]), ymin=-Inf, ymax=+Inf, alpha=0.09, fill="gray") +
   annotate("rect", xmin=as.numeric(CHR_Boundary[8,1]), xmax=as.numeric(CHR_Boundary[8,2]), ymin=-Inf, ymax=+Inf, alpha=0.09, fill="gray") +
   annotate("rect", xmin=as.numeric(CHR_Boundary[9,1]), xmax=as.numeric(CHR_Boundary[9,2]), ymin=-Inf, ymax=+Inf, alpha=0.09, fill="gray") +
-  annotate("text", x = MAXPOS+300000000, y = MINLP-1.75, label = "ANNUUS",size=5) +
-  annotate("text", x = MAXPOS+300000000, y = MINLP-2.50, label = "2nd_GERMPLASM",size=5) +
+  annotate("text", x = MAXPOS+300000000, y = samllest_y-1.75, label = "ANNUUS",size=5) +
+  annotate("text", x = MAXPOS+300000000, y = samllest_y-2.50, label = "2nd_GERMPLASM",size=5) +
 
   # Custom the theme:
   theme_bw() +
@@ -158,19 +159,19 @@ ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
     x = "Position") -> P
 
 if (nrow(filter(don,Donor == "ANNUUS", abs(PL) <= ben_treshold_0.1_annuua ))>0) {
-  P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) <= ben_treshold_0.1_annuua ),aes(x = as.numeric(BPcum), y = min(don$PL)-1.5, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2),col="black") -> P }
+  P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) <= ben_treshold_0.1_annuua ),aes(x = as.numeric(BPcum), y = samllest_y-1.5, xend = as.numeric(BPcum)+1000, yend = samllest_y-2),col="black") -> P }
 if (nrow(filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL > 0))) {
-P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL > 0),aes(x = as.numeric(BPcum), y = min(don$PL)-1.5, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2),col="green")  -> P}
+P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL > 0),aes(x = as.numeric(BPcum), y = samllest_y-1.5, xend = as.numeric(BPcum)+1000, yend = samllest_y-2),col="green")  -> P}
   if (nrow(filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL < 0)) >0) {
-  P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL < 0),aes(x = as.numeric(BPcum), y = min(don$PL)-1.5, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2),col="red")  -> P}
+  P + geom_segment(data = filter(don,Donor == "ANNUUS", abs(PL) > ben_treshold_0.1_annuua , PL < 0),aes(x = as.numeric(BPcum), y = samllest_y-1.5, xend = as.numeric(BPcum)+1000, yend = samllest_y-2),col="red")  -> P}
     if (nrow(filter(don,Donor == "2nd_GERMPLASM", abs(PL) <= ben_treshold_0.1_2ndgermplasm))) {
-  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) <= ben_treshold_0.1_2ndgermplasm),aes(x = as.numeric(BPcum), y = min(don$PL)-2.25, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2.75),col="black")  -> P}
+  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) <= ben_treshold_0.1_2ndgermplasm),aes(x = as.numeric(BPcum), y = samllest_y-2.25, xend = as.numeric(BPcum)+1000, yend = samllest_y-2.75),col="black")  -> P}
       if (nrow(filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL > 0))) {
-  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL > 0), aes(x = as.numeric(BPcum), y = min(don$PL)-2.25, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2.75),col="green")  -> P}
+  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL > 0), aes(x = as.numeric(BPcum), y = samllest_y-2.25, xend = as.numeric(BPcum)+1000, yend = samllest_y-2.75),col="green")  -> P}
         if (nrow(filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0))) {
-  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0), aes(x = as.numeric(BPcum), y = min(don$PL)-2.25, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2.75),col="red")  -> P}
+  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0), aes(x = as.numeric(BPcum), y = samllest_y-2.25, xend = as.numeric(BPcum)+1000, yend = samllest_y-2.75),col="red")  -> P}
           if (nrow(filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0))) {
-  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0), aes(x = as.numeric(BPcum), y = min(don$PL)-2.25, xend = as.numeric(BPcum)+1000, yend = min(don$PL)-2.75),col="red")  -> P}
+  P + geom_segment(data = filter(don,Donor == "2nd_GERMPLASM", abs(PL) > ben_treshold_0.1_2ndgermplasm , PL < 0), aes(x = as.numeric(BPcum), y = samllest_y-2.25, xend = as.numeric(BPcum)+1000, yend = samllest_y-2.75),col="red")  }
 
   ggsave(paste0(save_dir,"/",as.character(TRAIT),".pdf"),width=22,height=10)
 
