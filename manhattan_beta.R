@@ -39,7 +39,7 @@ fread(as.character(pheno1),
              remove = T) %>%
   mutate(BP = as.numeric(START)) %>%
   mutate(CHR = gsub("Ha412HOChr","CH",CHR)) %>%
-  mutate(PL=ifelse(Beta>=0,(log10(P)),log10(P)*-1)) %>%
+  mutate(PL=ifelse(Beta>=0,(log10(P)*-1),log10(P))) %>%
   mutate(Donor = pheno1_name) %>% 
     select(Donor,
            CHR,
