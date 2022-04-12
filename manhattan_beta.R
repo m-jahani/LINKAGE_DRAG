@@ -129,7 +129,7 @@ min(don$PL)-> MINLP
 max(don$BPcum)-> MAXPOS
 min(don$BPcum)-> MINPOS
 ifelse(MINLP> ben_treshold_0.1_annuua*-1,ben_treshold_0.1_annuua*-1,MINLP) -> samllest_y 
-ifelse(MAXLP > ben_treshold_0.1_annuua,ben_treshold_0.1_annuua,MAXLP) -> largest_y
+ifelse(MAXLP > ben_treshold_0.1_annuua,MAXLP,ben_treshold_0.1_annuua) -> largest_y
   
 ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
   
