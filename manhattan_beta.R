@@ -21,6 +21,11 @@ ben_treshold_0.1_2ndgermplasm <- 2.880814
 
 gsub(".ps","",gsub("/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1)) -> TRAIT
 
+
+# mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
+#   mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
+#   mutate(TRAIT=gsub("seed_lxw","seed_size",TRAIT)) %>% 
+
 pheno1_name <- "ANNUUS"
 pheno2_name <- "2nd_GERMPLASM"
 
