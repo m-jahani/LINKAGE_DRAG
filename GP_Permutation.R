@@ -15,7 +15,7 @@ MARKER <- args[1] #genotype data set "/data/users/mjahani/JOON_PAV/pav_gwas/SAM.
 PHENOTYPE <- args[2] #phenotypes"/data/users/mjahani/JOON_PAV/pav_gwas/phenotype.csv"
 SAVE_DIR <- args[3] #directory to save result "/data/users/mjahani/JOON_PAV/pav_gwas/result"
 PERMUTATION <- 100
-registerDoParallel(cores=100)
+registerDoParallel(cores=10000)
 ##########################################################Read data#########################################################
 
 Markers_impute <- fread(MARKER,
