@@ -20,14 +20,15 @@ ben_treshold_0.1_annuua <- 4.792041
 ben_treshold_0.1_2ndgermplasm <- 2.880814
 
 gsub("/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1) %>%
-gsub(".ps","",.) %>%
+gsub(".ps","",.) -> TRAIT
+TRAIT  %>%
 gsub("plant_biomass","biomass",.) %>%
 gsub("plant_height","height",.) %>%
 gsub("seed_lxw","seed_size",.) %>%
 gsub("__",", Location: ",.) %>%
 gsub("iowa","IA",.) %>%
 gsub("georgi","GA",.) %>%
-gsub("UBC","BC",.) -> TRAIT
+gsub("UBC","BC",.) -> TITLE
 
 # mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
 #   mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
@@ -165,7 +166,7 @@ ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
     strip.background = element_blank(),
     text=element_text(size=18)
   )+
-  ggtitle(as.character(TRAIT))+   
+  ggtitle(as.character(TITLE))+   
   labs(
     y = "log10 P-Value * Beta sign",
     x = "Position") -> P
