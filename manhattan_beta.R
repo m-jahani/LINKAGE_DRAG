@@ -29,16 +29,6 @@ gsub("iowa","IA",.) %>%
 gsub("georgi","GA",.) %>%
 gsub("UBC","BC",.) -> TRAIT
 
-
-mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
-  mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
-  mutate(TRAIT=gsub("seed_lxw","seed_size",TRAIT)) %>% 
-  rename(INTROGRESSIONS = INTREGRESSION) %>%
-  mutate(INTROGRESSIONS=gsub("other.","Secondary_Germplasm_",INTROGRESSIONS)) %>%
-  mutate(INTROGRESSIONS=gsub("frq","Frequency>",INTROGRESSIONS)) %>%
-  mutate(INTROGRESSIONS=gsub("annuus.","Annuus_",INTROGRESSIONS))
-
-
 # mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
 #   mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
 #   mutate(TRAIT=gsub("seed_lxw","seed_size",TRAIT)) %>% 
