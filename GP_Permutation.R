@@ -14,8 +14,8 @@ args = commandArgs(trailingOnly = TRUE)
 MARKER <- args[1] #genotype data set "/data/users/mjahani/JOON_PAV/pav_gwas/SAM.5maf.noheader.sed12.rrblup.csv"
 PHENOTYPE <- args[2] #phenotypes"/data/users/mjahani/JOON_PAV/pav_gwas/phenotype.csv"
 SAVE_DIR <- args[3] #directory to save result "/data/users/mjahani/JOON_PAV/pav_gwas/result"
-PERMUTATION <- 100
-registerDoParallel(cores=10000)
+PERMUTATION <- 10000
+registerDoParallel(cores=100)
 ##########################################################Read data#########################################################
 
 Markers_impute <- fread(MARKER,
