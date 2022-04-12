@@ -27,7 +27,7 @@ gsub("plant_height","height",.) %>%
 gsub("seed_lxw","seed_size",.) %>%
 gsub("__",", Location: ",.) %>%
 gsub("iowa","IA",.) %>%
-gsub("georgi","GA",.) %>%
+gsub("georgia","GA",.) %>%
 gsub("UBC","BC",.) -> TITLE
 
 # mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
