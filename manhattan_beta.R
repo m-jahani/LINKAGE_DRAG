@@ -19,7 +19,24 @@ save_dir <- args[4]
 ben_treshold_0.1_annuua <- 4.792041
 ben_treshold_0.1_2ndgermplasm <- 2.880814
 
-gsub(".ps","",gsub("/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1)) -> TRAIT
+gsub("/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SAM_introgression_donor_ANNUUS_maf0.03_","",pheno1) %>%
+gsub(".ps","",.) %>%
+gsub("plant_biomass","biomass",.) %>%
+gsub("plant_height","height",.) %>%
+gsub("seed_lxw","seed_size",.) %>%
+gsub("__",", Location: ",.) %>%
+gsub("iowa","IA",.) %>%
+gsub("georgi","GA",.) %>%
+gsub("UBC","BC",.) -> TRAIT
+
+
+mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
+  mutate(TRAIT=gsub("plant_height","height",TRAIT)) %>%
+  mutate(TRAIT=gsub("seed_lxw","seed_size",TRAIT)) %>% 
+  rename(INTROGRESSIONS = INTREGRESSION) %>%
+  mutate(INTROGRESSIONS=gsub("other.","Secondary_Germplasm_",INTROGRESSIONS)) %>%
+  mutate(INTROGRESSIONS=gsub("frq","Frequency>",INTROGRESSIONS)) %>%
+  mutate(INTROGRESSIONS=gsub("annuus.","Annuus_",INTROGRESSIONS))
 
 
 # mutate(TRAIT=gsub("plant_biomass","biomass",TRAIT)) %>% 
