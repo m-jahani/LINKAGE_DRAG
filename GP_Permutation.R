@@ -14,8 +14,9 @@ args = commandArgs(trailingOnly = TRUE)
 MARKER <- args[1] #genotype data set "/data/users/mjahani/JOON_PAV/pav_gwas/SAM.5maf.noheader.sed12.rrblup.csv"
 PHENOTYPE <- args[2] #phenotypes"/data/users/mjahani/JOON_PAV/pav_gwas/phenotype.csv"
 SAVE_DIR <- args[3] #directory to save result "/data/users/mjahani/JOON_PAV/pav_gwas/result"
-PERMUTATION <- 10000
-registerDoParallel(cores=100)
+
+PERMUTATION <- 2000
+registerDoParallel(cores=50)
 ##########################################################Read data#########################################################
 
 Markers_impute <- fread(MARKER,
@@ -43,27 +44,42 @@ for (trait in 1:length(TRAIT_ID)) {
                   SE=FALSE, 
                   return.Hinv=FALSE)$u)) %>% #calculation of BLUP
     summarise(!!TRAIT_ID[trait] := mean(V1)) %>%
-    cbind(trait_result,.) -> trait_result
+    cbind(trait_result,.) %>%
+    fwrite(paste0(SAVE_DIR,"/PERMUT_result",TRAIT_ID[trait]),
+           sep = "\t",
+           col.names = T,
+           quote = F,
+           append = T)
+
   
  # for (PERM in 1:10000) {
 
-     PERMUT_result <- foreach(PERM= 1:as.numeric(PERMUTATION), .combine='rbind') %dopar% {
+foreach(PERM = 1:as.numeric(PERMUTATION), .combine='rbind') %dopar% {
   as.data.frame(
     as.matrix(
-      mixed.solve(phenotype[,trait], #phenotyoic data
-                  Z=Markers_impute[sample(nrow(Markers_impute)),] , #shuufled marker data
+      mixed.solve(phenotype[,trait], #phenotypic data
+                  Z=Markers_impute[sample(nrow(Markers_impute)),] , #shuffled marker data
                   K=NULL, 
                   method="REML",
                   SE=FALSE, 
                   return.Hinv=FALSE)$u)) %>%
     summarise(!!TRAIT_ID[trait] := mean(V1)) %>%
       mutate(data_type = paste0("PERM",PERM)) %>%
-      select(data_type,everything(.)) 
+      select(data_type,everything(.)) %>%
+         fwrite(paste0(SAVE_DIR,"/PERMUT_result",TRAIT_ID[trait]),
+                sep = "\t",
+                col.names = F,
+                quote = F,
+                append = T)
   }
   
-     trait_result %>%
-       rbind(.,PERMUT_result) %>%
-       full_join(.,final) -> final
+
+fread(paste0(SAVE_DIR,"/PERMUT_result",TRAIT_ID[trait])) %>%
+filter(data_type != "observation") -> PERMUT_result
+
+fread(paste0(SAVE_DIR,"/PERMUT_result",TRAIT_ID[trait])) %>%
+filter(data_type == "observation") -> trait_result
+
        
 
        filter(PERMUT_result,TRAIT_ID[trait] < as.numeric(select(trait_result,TRAIT_ID[trait]))) %>%
@@ -94,9 +110,6 @@ for (trait in 1:length(TRAIT_ID)) {
   
 }
 
-fwrite(final,
-       paste0(SAVE_DIR,"/average_BLUP_PERMUTAION_OBSERVATION"),
-       sep = "\t",
-       col.names = T)
+
 
 
