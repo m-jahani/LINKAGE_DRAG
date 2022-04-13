@@ -17,7 +17,6 @@ SAVE_DIR <- args[3] #directory to save result "/data/users/mjahani/JOON_PAV/pav_
 
 PERMUTATION <- 1000
 registerDoParallel(cores=50)
-
 ##########################################################Read data#########################################################
 
 Markers_impute <- fread(MARKER,
