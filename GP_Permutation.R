@@ -165,7 +165,7 @@ fread(paste0(SAVE_DIR,"/postive_prop_PERMUT_result_",TRAIT_ID[trait]),header=F) 
                  select(TRAIT,P_type,P,Significant)) %>%
          fwrite(paste0(SAVE_DIR,"/P_VALUES_POST_PROP"),
                 sep = "\t",
-                col.names = T,
+                col.names = F,
                 quote = F,
                 append = T)
          
