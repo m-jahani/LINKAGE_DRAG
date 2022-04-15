@@ -125,7 +125,9 @@ for (trait in 1:length(TRAIT_ID)) {
 
 fwrite(BLUPS, 
        paste0(SAVE_DIR,
-              "/ALL_INTROGRESSION_EFFECTS"),
+              "/",
+              DONOR,
+              "_ALL_INTROGRESSION_EFFECTS"),
        col.names = T,
        sep = ",",
        quote = F)
@@ -167,7 +169,7 @@ result %>%
   fwrite(paste0(SAVE_DIR,
                 "/",
                 DONOR,
-                "het_VS_hom_introgression_effect_postive_prop"),
+                "_het_VS_hom_introgression_effect_postive_prop"),
          col.names = T,
          sep = ",",
          quote = F)
