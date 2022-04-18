@@ -9,8 +9,8 @@ args = commandArgs(trailingOnly = TRUE)
 
 MARKER <- args[1] #"/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_2nd_GERMPLASM_maf0.03_rrBLUP.in"
 PHENOTYPE <- args[2] #"/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/phenotype_common_georgia_corrected.csv"
-VARIANT_ID <- args[3]
-VARIANT_FRQ <- args[4]
+IDs <- args[3]
+FRQs <- args[4]
 DONOR <- args[5]
 SAVE_DIR <- args[6]
 
