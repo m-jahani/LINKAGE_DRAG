@@ -22,6 +22,13 @@ SAVE_DIR <- args[6]
 # DONOR <- "2nd_GERMPLASM"
 # SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP"
 
+MARKER <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_rrBLUP.in"
+PHENOTYPE <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/phenotype_common_georgia_corrected.csv"
+IDs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_SNP_list"
+FRQs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP/frquency/SAM_introgression_donor_ANNUUS_maf0.03_introgression.frq"
+DONOR <- "ANNUUS"
+SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP"
+
 ##########################################################Read data#########################################################
 
 Markers_impute <- fread(MARKER,
@@ -68,7 +75,8 @@ registerDoParallel(cores=60)
                   rename(BLUP = V1) %>% 
                   cbind(.,VARIAN_IDS) %>%
                   full_join(.,VARIANT_FREQUENCY) %>%
-                  select(TRAIT,
+                  select(VARIANT_ID,
+                         TRAIT,
                          BLUP,
                          FRQ)
 }
@@ -86,7 +94,7 @@ registerDoParallel(cores=60)
     fwrite(paste0(SAVE_DIR,
                   "/",
                   DONOR,
-                  "_ALL_INTROGRESSION_EFFECTS_FRQUENCY"),
+                  "_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"),
            col.names = T,
            sep = ",",
            quote = F)
