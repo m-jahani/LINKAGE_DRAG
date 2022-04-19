@@ -1,8 +1,9 @@
 #!/bin/bash
 TFILE=$1
 MAF=$2
+SAMPLE=$3
 
-plink --tfile $TFILE --maf $MAF --recode vcf-iid --out $TFILE
+plink --tfile $TFILE --maf $MAF --keep $SAMPLE --recode vcf-iid --out $TFILE
 
 bcftools query -l ${TFILE}.vcf >${TFILE}_sample_list
 grep -v "^#" ${TFILE}.vcf | awk '{print $1":"$2}' >${TFILE}_variant_list
