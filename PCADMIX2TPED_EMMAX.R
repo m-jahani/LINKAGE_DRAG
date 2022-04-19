@@ -8,10 +8,15 @@ options(scipen = 99999) #avoid scientific number
 
 #args = commandArgs(trailingOnly = TRUE)
 
-CHR_LENGTH_FILE <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/HA412v2_chromosome.txt"
-PC_ADMIX <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/pcadmix.xxx.regions.txt"
-SAMPLE_LIST <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/SAM_LIST"
-SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping"
+CHR_LENGTH_FILE <- args[1]
+PC_ADMIX <- args[2]
+SAMPLE_LIST <- args[3]
+SAVE_DIR <- args[4]
+
+#CHR_LENGTH_FILE <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/HA412v2_chromosome.txt"
+#PC_ADMIX <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/pcadmix.xxx.regions.txt"
+#SAMPLE_LIST <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping/SAM_LIST"
+#SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/introg_genotyping"
 
 #read length of referenc genome for each chromosome
 fread(CHR_LENGTH_FILE) %>% 
