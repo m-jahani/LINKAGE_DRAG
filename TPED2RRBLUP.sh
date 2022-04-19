@@ -14,5 +14,3 @@ while read SAMPLE; do
     cat ${TFILE}_${SAMPLE}_rrBLUP.in | sed 's/-1/2/g' | sed 's/1/-1/g' | sed 's/2/1/g' >>${TFILE}_maf${MAF}_rrBLUP.in
     rm ${TFILE}_${SAMPLE}_rrBLUP.in ${TFILE}_${SAMPLE}_rrBLUP_samples.txt ${SAMPLE}.log ${SAMPLE}.recode.vcf
 done <${TFILE}_sample_list
-
-rm ${TFILE}_maf${MAF}.vcf
