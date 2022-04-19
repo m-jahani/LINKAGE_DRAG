@@ -18,6 +18,14 @@
 
 > runs as: PCADMIX2TPED_EMMAX.R HA412v2_chromosome.txt pcadmix.xxx.regions.txt SAM_LIST /save/directory
 
+### GWAS_EMMAX_INROG.sh
+
+> Runs EMMAX GWAS on introgression variants
+
+### manhattan_beta.R
+
+> Draws Manhattan and barcode plot for introgression GWAS, in the manhattan plots the position of introgressions in Y axis is base on P value and beta sign
+
 ### PCADMIX2TPED_rrBLUP.R
 
 > finds the overlaps between PCadmix result and 1kb genomewide windows and save the introgression variants in plink transposed format tped specificly for rrBLUP, introgressed allele saved as allele 1
