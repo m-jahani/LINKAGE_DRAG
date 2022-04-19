@@ -32,8 +32,12 @@
 
 > runs as: PCADMIX2TPED_rrBLUP.R HA412v2_chromosome.txt pcadmix.xxx.regions.txt SAM_LIST /save/directory
 
+### sample_list_for_phenotype
+
+> list of samples with phenotype
+
 ### TPED2RRBLUP.sh
 
 > convert tped to vcf and rrblup fomat and filters for maf
 
-> runs as: PCADMIX2TPED_rrBLUP.R tpedprefix maf
+> runs as: PCADMIX2TPED_rrBLUP.R tpedprefix maf sample_list_for_phenotype
