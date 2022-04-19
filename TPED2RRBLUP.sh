@@ -1,12 +1,12 @@
 #!/bin/bash
 TFILE=$1
 MAF=$2
-SAMPLE=$3
+SAMPLE_LIST=$3
 
-plink --tfile $TFILE --maf $MAF --keep $SAMPLE --recode vcf-iid --out ${TFILE}_maf${MAF}
-
+plink --tfile $TFILE --maf $MAF --keep $SAMPLE_LIST --recode vcf-iid --out ${TFILE}_maf${MAF}
+rm ${TFILE}_maf${MAF}.log ${TFILE}_maf${MAF}.nosex
 bcftools query -l ${TFILE}_maf${MAF}.vcf >${TFILE}_sample_list
-grep -v "^#" ${TFILE}.vcf | awk '{print $1":"$2}' >${TFILE}_variant_list
+grep -v "^#" ${TFILE}_maf${MAF}.vcf | awk '{print $1":"$2}' >${TFILE}_maf${MAF}_variant_list
 while read SAMPLE; do
     echo "$SAMPLE"
     vcftools --vcf ${TFILE}_maf${MAF}.vcf --indv $SAMPLE --recode --recode-INFO-all --out $SAMPLE
