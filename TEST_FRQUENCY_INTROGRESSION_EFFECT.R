@@ -22,12 +22,12 @@ SAVE_DIR <- args[6]
 # DONOR <- "2nd_GERMPLASM"
 # SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP"
 
-MARKER <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_rrBLUP.in"
-PHENOTYPE <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/phenotype_common_georgia_corrected.csv"
-IDs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_SNP_list"
-FRQs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP/frquency/SAM_introgression_donor_ANNUUS_maf0.03_introgression.frq"
-DONOR <- "ANNUUS"
-SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP"
+# MARKER <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_rrBLUP.in"
+# PHENOTYPE <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/phenotype_common_georgia_corrected.csv"
+# IDs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/SAM_introgression_donor_ANNUUS_maf0.03_SNP_list"
+# FRQs <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP/frquency/SAM_introgression_donor_ANNUUS_maf0.03_introgression.frq"
+# DONOR <- "ANNUUS"
+# SAVE_DIR <- "/DATA/home/mjahani/LINKADE_DRAG/new_method/GP/FREQ_VS_BLUP"
 
 ##########################################################Read data#########################################################
 
@@ -45,14 +45,14 @@ VARIAN_IDS <- fread(IDs,
 VARIANT_FREQUENCY <- read.csv(FRQs,
                             header = F,
                             sep="\t") %>% 
-  rename(POSITION = V1,
-         FRQ = V2) %>%
-  separate(POSITION, into = c("CHR","START_END"), remove = F, sep = ":") %>%
-  separate(START_END, into = c("START","END"), remove = F, sep = "-") %>%
-  mutate(CHR = as.numeric(gsub("Ha412HOChr","",CHR))) %>%
-  mutate(VARIANT_ID = paste0(CHR,":",START)) %>%
-  select(VARIANT_ID,
-         FRQ)
+  rename(VARIANT_ID = V1,
+         FRQ = V2) 
+  # separate(POSITION, into = c("CHR","START_END"), remove = F, sep = ":") %>%
+  # separate(START_END, into = c("START","END"), remove = F, sep = "-") %>%
+  # mutate(CHR = as.numeric(gsub("Ha412HOChr","",CHR))) %>%
+  # mutate(VARIANT_ID = paste0(CHR,":",START)) %>%
+  # select(VARIANT_ID,
+  #        FRQ)
 ##################################################Fit the prediction Model##################################################
 
 phenotype %>% 
