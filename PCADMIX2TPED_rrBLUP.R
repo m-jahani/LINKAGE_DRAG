@@ -6,7 +6,7 @@ library(data.table)
 
 options(scipen = 99999) # avoid scientific number
 
-# args = commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
 CHR_LENGTH_FILE <- args[1]
 PC_ADMIX <- args[2]
