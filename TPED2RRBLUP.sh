@@ -15,4 +15,4 @@ while read SAMPLE; do
     rm ${TFILE}_${SAMPLE}_rrBLUP.in ${TFILE}_${SAMPLE}_rrBLUP_samples.txt ${SAMPLE}.log ${SAMPLE}.recode.vcf
 done <${TFILE}_sample_list
 
-rm {TFILE}_maf${MAF}.vcf
+rm ${TFILE}_maf${MAF}.vcf
