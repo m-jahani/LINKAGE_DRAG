@@ -60,3 +60,9 @@
 ### slurm_GP_Permutation.sh
 
 > script to submit CC_GP_Permutation.R on slurm system
+
+### Heterosis_introgression_test.R
+
+> compares average effect size and prioportion of positive effect between low hetrozygousity and full data set for introgression variants
+
+> runs as: Heterosis_introgression_test.R MARKER MARKER_HOMOZ PHENOTYPE PHENOTYPE_HOMOZ DONOR SAVE_DIR
