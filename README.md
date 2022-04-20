@@ -41,3 +41,22 @@
 > convert tped to vcf and rrblup fomat and filters for maf
 
 > runs as: PCADMIX2TPED_rrBLUP.R tpedprefix maf sample_list_for_phenotype
+
+### GP_Permutation.R
+
+> Rscript to calculate average effect size of all introgressions on each trait. To check the hypothesis of:
+> difference between observed effect size and random event : 0
+> It shuffles introgressions among samples for 10000 times and built a null distribution to calculate a P-value.
+> P<0.05 was considered a significant differenc
+
+> Runs as: GP_Permutation.R MARKER PHENOTYPE SAVE_DIR DONOR
+
+### CC_GP_Permutation.R
+
+> same function as GP_Permutation.R, but it can take arrays on slurm Computecanada
+
+> Runs as: GP_Permutation.R MARKER PHENOTYPE SAVE_DIR SLURM_ARRAY_TASK_ID DONOR
+
+### slurm_GP_Permutation.sh
+
+> script to submit CC_GP_Permutation.R on slurm system
