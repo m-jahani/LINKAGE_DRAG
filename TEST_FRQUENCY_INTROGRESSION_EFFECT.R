@@ -43,8 +43,8 @@ VARIAN_IDS <- fread(IDs,
   rename(VARIANT_ID = V1)
 
 VARIANT_FREQUENCY <- read.csv(FRQs,
-                            header = F,
-                            sep="\t") %>% 
+                              header = F,
+                              sep=" ") %>% 
   rename(VARIANT_ID = V1,
          FRQ = V2) 
   # separate(POSITION, into = c("CHR","START_END"), remove = F, sep = ":") %>%
