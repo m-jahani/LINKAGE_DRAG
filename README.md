@@ -67,6 +67,12 @@
 
 > runs as: Heterosis_introgression_test.R MARKER MARKER_HOMOZ PHENOTYPE PHENOTYPE_HOMOZ DONOR SAVE_DIR
 
+### VCF2FRQ.sh
+
+> calculate frequency from VCF
+
+> runs as: VCF2FRQ.sh VCF
+
 ### TEST_FRQUENCY_INTROGRESSION_EFFECT.R
 
 > calculates if introgression frequency has significant impact on introgression effect
