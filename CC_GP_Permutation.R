@@ -13,7 +13,7 @@ MARKER <- args[1] # genotype data set "/data/users/mjahani/JOON_PAV/pav_gwas/SAM
 PHENOTYPE <- args[2] # phenotypes"/data/users/mjahani/JOON_PAV/pav_gwas/phenotype.csv"
 SAVE_DIR <- args[3] # directory to save result "/data/users/mjahani/JOON_PAV/pav_gwas/result"
 trait <- as.numeric(args[4]) # array in slurm
-DONOR <- srgs[5]
+DONOR <- args[5]
 PERMUTATION <- 10000
 registerDoParallel(cores = 45)
 ########################################################## Read data#########################################################
