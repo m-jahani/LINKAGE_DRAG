@@ -4,11 +4,11 @@
 # ---------------------------------------------------------------------
 #SBATCH --account=def-rieseber
 #SBATCH --job-name=GenomicPredictionModel
-#SBATCH --cpus-per-task=64
-#SBATCH --mem=255000M
+#SBATCH --cpus-per-task=48
+#SBATCH --mem=192000M
 #SBATCH --time=02:59:00
 #SBATCH --output=%j_%x.out
-#SBATCH --array=1_46
+#SBATCH --array=1-46
 # ---------------------------------------------------------------------
 echo "Current working directory: $(pwd)"
 echo "Starting run at: $(date)"
