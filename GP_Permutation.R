@@ -141,7 +141,7 @@ for (trait in 1:length(TRAIT_ID)) {
     mutate(V2 = as.numeric(V2)) -> postive_prop_trait_result
 
 
-  filter(AVERAGE_PERMUT_result, V2 < as.numeric(select(AVERAGE_trait_result, V2))) %>%
+  filter(AVERAGE_PERMUT_result, V2 > as.numeric(select(AVERAGE_trait_result, V2))) %>% #>
     summarise(P = n() / as.numeric(nrow(AVERAGE_PERMUT_result))) %>%
     mutate(P_type = "LARGER") %>%
     mutate(TRAIT = TRAIT_ID[trait]) %>%
@@ -149,7 +149,7 @@ for (trait in 1:length(TRAIT_ID)) {
     select(TRAIT, P_type, P, Significant) %>%
     rbind(
       .,
-      filter(AVERAGE_PERMUT_result, V2 > as.numeric(select(AVERAGE_trait_result, V2))) %>%
+      filter(AVERAGE_PERMUT_result, V2 < as.numeric(select(AVERAGE_trait_result, V2))) %>% #<
         summarise(P = n() / as.numeric(nrow(AVERAGE_PERMUT_result))) %>%
         mutate(P_type = "SMALLER") %>%
         mutate(TRAIT = TRAIT_ID[trait]) %>%
@@ -164,7 +164,7 @@ for (trait in 1:length(TRAIT_ID)) {
       append = T
     )
 
-  filter(postive_prop_PERMUT_result, V2 < as.numeric(select(postive_prop_trait_result, V2))) %>%
+  filter(postive_prop_PERMUT_result, V2 > as.numeric(select(postive_prop_trait_result, V2))) %>%
     summarise(P = n() / as.numeric(nrow(postive_prop_PERMUT_result))) %>%
     mutate(P_type = "LARGER") %>%
     mutate(TRAIT = TRAIT_ID[trait]) %>%
@@ -172,7 +172,7 @@ for (trait in 1:length(TRAIT_ID)) {
     select(TRAIT, P_type, P, Significant) %>%
     rbind(
       .,
-      filter(postive_prop_PERMUT_result, V2 > as.numeric(select(postive_prop_trait_result, V2))) %>%
+      filter(postive_prop_PERMUT_result, V2 < as.numeric(select(postive_prop_trait_result, V2))) %>%
         summarise(P = n() / as.numeric(nrow(postive_prop_PERMUT_result))) %>%
         mutate(P_type = "SMALLER") %>%
         mutate(TRAIT = TRAIT_ID[trait]) %>%
