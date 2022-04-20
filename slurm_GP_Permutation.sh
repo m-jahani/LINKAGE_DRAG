@@ -24,16 +24,16 @@ echo ""
 module load nixpkgs/16.09 gcc/7.3.0 r/4.0.2
 
 #input data
-ROOT_DIR=/home/mjahani/scratch/LINKAGE_DRAG
+ROOT_DIR=/home/mjahani/scratch/LINKAGE_DRAG/new_data
 SCRIPT=${ROOT_DIR}/CC_GP_Permutation.R
 GENOTYPE=${ROOT_DIR}/SAM_introgression_donor_ANNUUS_maf0.03_rrBLUP.in
 PHENOTYPE=${ROOT_DIR}/phenotype_common_georgia_corrected.csv
-
+DONOR=WILD_ANNUUS
 # Output directory
 SAVE_DIR=${ROOT_DIR}/result
 
 #run th escript
-Rscript $SCRIPT $GENOTYPE $PHENOTYPE $SAVE_DIR $SLURM_ARRAY_TASK_ID
+Rscript $SCRIPT $GENOTYPE $PHENOTYPE $SAVE_DIR $SLURM_ARRAY_TASK_ID $DONOR
 
 # ---------------------------------------------------------------------
 echo "Job finished with exit code $? at: $(date)"
