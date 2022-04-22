@@ -45,47 +45,78 @@ list.files(path=GWAS_DIR) %>%
 }
 
   
-  result %>% 
+
+
+  result %>%
     filter(DONOR=="Wild_Annuus") %>%
     filter(SIGN=="POSITIVE") %>%
     select(-DONOR,
            -SIGN) %>%
-    rename(group = TRAIT) %>%
-    fwrite(paste0(SAVE_DIR,"/Wild_Annuus_POSITIVE_SHINY.csv"),
+    distinct(chr,
+             start,
+             end,
+             TRAIT) %>%
+    group_by(chr,
+             start,
+             end) %>%
+    mutate(id = row_number()) %>%
+    ungroup() %>%
+    mutate(id=gsub(1,"one",id)) %>%
+    mutate(id=gsub(2,"two",id)) %>%
+    spread(id,
+           TRAIT) %>%
+    mutate(group=paste0(one," & ",two)) %>%
+    select(-one,
+           -two) %>%
+    mutate(group=gsub(" & NA","",group)) %>%
+fwrite(paste0(SAVE_DIR,"/Wild_Annuus_POSITIVE_SHINY.csv"),
            sep = ",",
            col.names = T,
            quote = F)
-  
-  result %>% 
+
+  result %>%
     filter(DONOR=="Wild_Annuus") %>%
     filter(SIGN=="NEGATIVE") %>%
     select(-DONOR,
            -SIGN) %>%
-    rename(group = TRAIT) %>%
+    distinct(chr,
+             start,
+             end,
+             TRAIT) %>%
+    group_by(chr,
+             start,
+             end) %>%
+    mutate(id = row_number()) %>%
+    ungroup() %>%
+    mutate(id=gsub(1,"one",id)) %>%
+    mutate(id=gsub(2,"two",id)) %>%
+    spread(id,
+           TRAIT) %>%
+    mutate(group=paste0(one," & ",two)) %>%
+    select(-one,
+           -two) %>%
+    mutate(group=gsub(" & NA","",group)) %>%
     fwrite(paste0(SAVE_DIR,"/Wild_Annuus_NEGATIVE_SHINY.csv"),
            sep = ",",
            col.names = T,
            quote = F)
-  
-  result %>% 
+
+  result %>%
     filter(DONOR=="Secondary_Germplasm") %>%
     filter(SIGN=="POSITIVE") %>%
     select(-DONOR,
            -SIGN) %>%
+    distinct(chr,
+             start,
+             end,
+             TRAIT) %>%
     rename(group = TRAIT) %>%
     fwrite(paste0(SAVE_DIR,"/Secondary_Germplasm_POSITIVE_SHINY.csv"),
            sep = ",",
            col.names = T,
            quote = F)
+
+
   
-  result %>% 
-    filter(DONOR=="Secondary_Germplasm") %>%
-    filter(SIGN=="NEGATIVE") %>%
-    select(-DONOR,
-           -SIGN) %>%
-    rename(group = TRAIT) %>%
-    fwrite(paste0(SAVE_DIR,"/Secondary_Germplasm_NEGATIVE_SHINY.csv"),
-           sep = ",",
-           col.names = T,
-           quote = F)
-    
+  
+  
