@@ -5,7 +5,7 @@ library(foreach)
 library(doParallel)
 
 GWAS_DIR="/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result"
-SAVE_DIR="/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result"
+SAVE_DIR="/DATA/home/mjahani/LINKADE_DRAG/new_method/GWAS/result/SHINY"
 
 list.files(path=GWAS_DIR) %>% 
   as.data.frame() %>% filter(grepl(".ps",.)) %>% 
@@ -116,7 +116,34 @@ fwrite(paste0(SAVE_DIR,"/Wild_Annuus_POSITIVE_SHINY.csv"),
            col.names = T,
            quote = F)
 
-
+  DATA_LIST %>% 
+    distinct(TRAIT) %>% 
+    pull(TRAIT) -> TRAIT_LIST
   
+  DONORS = c("Wild_Annuus",
+            "Secondary_Germplasm")
+  
+  for (i in 1:length(TRAIT_LIST)) {
+    for (j in 1:length(DONORS)) {
+      
+    result %>%
+      filter(TRAIT == TRAIT_LIST[i]) %>%
+      filter(DONOR == DONORS[j]) %>%
+      select(-TRAIT,
+             -DONOR) %>%
+      rename(group = SIGN) %>%
+        fwrite(paste0(SAVE_DIR,
+                      "/",
+                      DONORS[j],
+                      "_",
+                      TRAIT_LIST[i],
+                      "_SHINY.csv"),
+               sep = ",",
+               col.names = T,
+               quote = F)
+        
+
+    }
+  }
   
   
