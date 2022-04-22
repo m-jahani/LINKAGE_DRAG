@@ -26,6 +26,10 @@
 
 > Draws Manhattan and barcode plot for introgression GWAS, in the manhattan plots the position of introgressions in Y axis is base on P value and beta sign
 
+### GWAS_SUMMARY.R
+
+> Extracting ouliers from EMMAX GWAS result
+
 ### PCADMIX2TPED_rrBLUP.R
 
 > finds the overlaps between PCadmix result and 1kb genomewide windows and save the introgression variants in plink transposed format tped specificly for rrBLUP, introgressed allele saved as allele 1
