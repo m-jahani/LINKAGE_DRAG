@@ -61,6 +61,7 @@ SCALED_BLUP %>%
               se = F) +
   xlab("Frequancy of introgression") +
   ylab("Effect size of introgression (Z score)") +
+  geom_hline(yintercept=0,linetype="dotted") +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(),panel.border = element_rect(colour = "black", fill=NA, size=0.5),
         plot.title = element_text(hjust = 0.5),
@@ -72,7 +73,7 @@ SCALED_BLUP %>%
                      name="Location",
                      labels=c("Georgia","Iowa","BC"))+
   facet_wrap(~TRAIT) +
-  ggtitle("Introgressions from Wild Annuus")
+  ggtitle("Introgressions from Wild annuus")
 
 ggsave(paste0(SAVE_DIR,"/Wild_Annuus_SLOPE_LINE_PLOT.PDF"))
 
@@ -84,6 +85,7 @@ SCALED_BLUP %>%
               se = F) +
   xlab("Frequancy of introgression") +
   ylab("Effect size of introgression (Z score)") +
+  geom_hline(yintercept=0,linetype="dotted") +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(),panel.border = element_rect(colour = "black", fill=NA, size=0.5),
         plot.title = element_text(hjust = 0.5),
@@ -95,7 +97,7 @@ SCALED_BLUP %>%
                      name="Location",
                      labels=c("Georgia","Iowa","BC"))+
   facet_wrap(~TRAIT) +
-  ggtitle("Introgressions from Secondary Gemplasm")
+  ggtitle("Introgressions from Secondary germplasm")
 
 ggsave(paste0(SAVE_DIR,"/Secondary_Gemplasm_SLOPE_LINE_PLOT.PDF"))
 
