@@ -59,7 +59,7 @@ SCALED_BLUP %>%
   ggplot(., aes(FRQ, ZBLUP,color = LOCATION)) +
   geom_smooth(method = "lm",
               se = F) +
-  xlab("Frequancy of introgression") +
+  xlab("Frequency of introgression") +
   ylab("Effect size of introgression (Z score)") +
   geom_hline(yintercept=0,linetype="dotted") +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -83,7 +83,7 @@ SCALED_BLUP %>%
   ggplot(., aes(FRQ, ZBLUP,color = LOCATION)) +
   geom_smooth(method = "lm",
               se = F) +
-  xlab("Frequancy of introgression") +
+  xlab("Frequency of introgression") +
   ylab("Effect size of introgression (Z score)") +
   geom_hline(yintercept=0,linetype="dotted") +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
