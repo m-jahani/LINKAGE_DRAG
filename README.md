@@ -51,7 +51,7 @@
 > Rscript to calculate average effect size of all introgressions on each trait. To check the hypothesis of:
 > difference between observed effect size and random event : 0
 > It shuffles introgressions among samples for 10000 times and built a null distribution to calculate a P-value.
-> P<0.05 was considered a significant differenc
+> P<0.05 was considered a significant difference
 
 > Runs as: GP_Permutation.R MARKER PHENOTYPE SAVE_DIR DONOR
 
