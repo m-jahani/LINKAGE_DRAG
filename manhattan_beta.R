@@ -134,7 +134,7 @@ ifelse(MAXLP > ben_treshold_0.1_annuua,MAXLP,ben_treshold_0.1_annuua) -> largest
 ggplot(don, aes(x=BPcum, y=PL, color=Donor)) +
   
   # Show all points
-  geom_point(size=1) + #data=filter(don,abs(PL)>1),
+  geom_point(size=3) + #data=filter(don,abs(PL)>1),
   scale_color_manual(values = c("#FF8000", "#3399FF")) + 
   #custom X axis:
   scale_x_continuous(label = axisdf$CHR, breaks= axisdf$center ) +
