@@ -52,7 +52,6 @@ for (i in 1:nrow(DONOR_TRAIT_LOCA)) {
     rbind(.,SCALED_BLUP) -> SCALED_BLUP
 }
   
-mutate(trait_loc = paste0(TRAIT," (",LOCATION,")"))
 
 SCALED_BLUP %>%
   filter(DONOR == "Wild_Annuus") %>%
