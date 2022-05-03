@@ -9,10 +9,10 @@ INTRO_FRQ_ANNUUS <- args[1] #"/Users/mojtabajahani/Documents/Projects/Linkage_dr
 INTRO_FRQ_Secondry <- args[2] #"/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/Secondary_Germplasm_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"
 SAVE_DIR <- args[3] #"/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/"
 
-args = commandArgs(trailingOnly = TRUE)
-INTRO_FRQ_ANNUUS <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/WILD_ANNUUS_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"
-INTRO_FRQ_Secondry <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/Secondary_Germplasm_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"
-SAVE_DIR <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW"
+#args = commandArgs(trailingOnly = TRUE)
+#INTRO_FRQ_ANNUUS <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/WILD_ANNUUS_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"
+#INTRO_FRQ_Secondry <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW/Secondary_Germplasm_ALL_INTROGRESSION_EFFECTS_FRQUENCY_ID"
+#SAVE_DIR <- "/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/GP/FRQ_VS_BLUP_NEW"
 
 
 fread(INTRO_FRQ_ANNUUS) %>% 
@@ -56,7 +56,7 @@ mutate(trait_loc = paste0(TRAIT," (",LOCATION,")"))
 
 SCALED_BLUP %>%
   filter(DONOR == "Wild_Annuus") %>%
-  ggplot(., aes(FRQ, ZBLUP,color = LOCATION)) +
+  ggplot(., aes(x=FRQ, y=ZBLUP,color = LOCATION)) +
   geom_smooth(method = "lm",
               se = F) +
   xlab("Frequency of introgression") +
@@ -80,7 +80,7 @@ ggsave(paste0(SAVE_DIR,"/Wild_Annuus_SLOPE_LINE_PLOT.PDF"))
 
 SCALED_BLUP %>%
   filter(DONOR == "Secondary_Germplasm") %>%
-  ggplot(., aes(FRQ, ZBLUP,color = LOCATION)) +
+  ggplot(., aes(x=FRQ, y=ZBLUP,color = LOCATION)) +
   geom_smooth(method = "lm",
               se = F) +
   xlab("Frequency of introgression") +
@@ -114,7 +114,7 @@ for (trait in 1:nrow(DONOR_TRAIT_LOCA)) {
   ZBLUPs <- pull(filter(SCALED_BLUP,DONOR == as.character(DONOR_TRAIT_LOCA[trait,1]),
                         TRAIT == as.character(DONOR_TRAIT_LOCA[trait,2]),
                         LOCATION == as.character(DONOR_TRAIT_LOCA[trait,3])),ZBLUP)
-  fit=lm(FRQU ~ ZBLUPs)
+  fit=lm(ZBLUPs ~ FRQU)
   RESULT[trait,1] <-   as.character(DONOR_TRAIT_LOCA[trait,1]) #DONOT ID
   RESULT[trait,2] <-   as.character(DONOR_TRAIT_LOCA[trait,2]) #trait id
   RESULT[trait,3] <-   as.character(DONOR_TRAIT_LOCA[trait,3]) #location id
@@ -172,8 +172,8 @@ SCALED_BLUP %>%
   filter(TRAIT %in% c("branching","oil","dtf"),
          DONOR=="Wild_Annuus") %>% arrange(desc(FRQ)) %>%
   transform(TRAIT=factor(TRAIT,levels=c("branching","oil","dtf"))) %>%
-  ggplot(.,aes(FRQ, 
-               ZBLUP,
+  ggplot(.,aes(x=FRQ, 
+               y=ZBLUP,
                color = LOCATION)) +
   geom_smooth(method = "lm",
               se = F) +
@@ -232,5 +232,3 @@ SCALED_BLUP %>%
   ggsave(paste0(SAVE_DIR,"/Secondary_Germplasm_SLOPE_POINT_PLOT.PDF"), 
          width = 10,
          height = 3)
-  
-  
