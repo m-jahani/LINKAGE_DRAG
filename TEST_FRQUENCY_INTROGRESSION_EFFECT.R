@@ -106,7 +106,7 @@ registerDoParallel(cores=60)
 
       FRQU <- pull(filter(BLUPS,TRAIT == TRAIT_ID[trait]),FRQ)
       BLUPs <- pull(filter(BLUPS,TRAIT == TRAIT_ID[trait]),BLUP)
-      fit=lm(FRQU ~ BLUPs)
+      fit=lm(BLUPs ~ FRQU)
       RESULT[trait,1] <- TRAIT_ID[trait] #trait name
       RESULT[trait,2] <- summary(fit)$r.squared #R-squared
       RESULT[trait,3] <- summary(fit)$coefficients[2,1] #Beta1 (slope)
