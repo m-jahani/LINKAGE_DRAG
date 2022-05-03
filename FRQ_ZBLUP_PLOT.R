@@ -32,7 +32,7 @@ for (i in 1:length(TRAIT_LOCA)) {
 
 
 SCALED_BLUP %>%
-  ggplot(., aes(FRQ, ZBLUP)) +
+  ggplot(., aes(x=FRQ, y=ZBLUP)) +
   geom_smooth(method = "lm") +
   xlab("Frequancy of introgression") +
   ylab("Z score Effect size of introgression") +
@@ -56,7 +56,7 @@ for (trait in 1:length(TRAIT_LOCA)) {
   
   FRQU <- pull(filter(SCALED_BLUP,trait_loc == TRAIT_LOCA[trait]),FRQ)
   ZBLUPs <- pull(filter(SCALED_BLUP,trait_loc == TRAIT_LOCA[trait]),ZBLUP)
-  fit=lm(FRQU ~ ZBLUPs)
+  fit=lm(ZBLUPs ~ FRQU)
   RESULT[trait,1] <-  TRAIT_LOCA[trait] #trait location ID
   RESULT[trait,2] <-  pull(distinct(filter(SCALED_BLUP,trait_loc == TRAIT_LOCA[trait]),TRAIT),TRAIT) #trait id
   RESULT[trait,3] <-  pull(distinct(filter(SCALED_BLUP,trait_loc == TRAIT_LOCA[trait]),LOCATION),LOCATION) #location id
