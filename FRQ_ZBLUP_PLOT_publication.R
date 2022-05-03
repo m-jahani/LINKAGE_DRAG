@@ -205,8 +205,8 @@ SCALED_BLUP %>%
     filter(TRAIT %in% c("branching","oil","dtf"),
            DONOR=="Secondary_Germplasm") %>% arrange(desc(FRQ)) %>%
   transform(TRAIT=factor(TRAIT,levels=c("branching","oil","dtf"))) %>%
-    ggplot(.,aes(FRQ, 
-                 ZBLUP,
+    ggplot(.,aes(x=FRQ, 
+                 y=ZBLUP,
                  color = LOCATION)) +
     geom_smooth(method = "lm",
                 se = F) +
@@ -222,7 +222,7 @@ SCALED_BLUP %>%
           legend.position='none',
           text = element_text(size=20)
     ) +
-    xlim(0, 0.5)+
+    xlim(0, 0.5) +
     scale_color_manual(values=pnw_palette("Bay",5)[c(1,3,5)],
                        name="Location",
                        labels=c("Georgia","Iowa","BC")) +
