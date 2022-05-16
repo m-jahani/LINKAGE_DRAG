@@ -2,7 +2,7 @@
 #the conversion process was looped over each sample because the software consumes tons of RAM
 VCF=$1
 bcftools query -l $VCF >${VCF%%vcf}sample_list
-grep -v "^#" $VCF | awk '{print $1":"$2}' >${VCF%%vcf}SNP_list 
+grep -v "^#" $VCF | awk '{print $1":"$2}' >${VCF%%vcf}SNP_list
 while read SAMPLE; do
     echo "$SAMPLE"
     vcftools --vcf $VCF --indv $SAMPLE --recode --recode-INFO-all --out $SAMPLE
