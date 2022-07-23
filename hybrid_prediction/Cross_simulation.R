@@ -3,15 +3,16 @@ library(tidyverse)
 library(foreach)
 library(doParallel)
 
-awk '{print $1,"\t",$1}' ~/LINKADE_DRAG/new_method/GP1/genotype/SAM_introgression_donor_ANNUUS_sample_list > SAM_introgression_donor_ANNUUS_sample_list_2column
-plink --tfile /DATA/home/mjahani/LINKADE_DRAG/new_method/GP1/genotype/SAM_introgression_donor_ANNUUS --maf 0.03 --keep SAM_introgression_donor_ANNUUS_sample_list_2column --recode --transpose --out SAM_introgression_donor_ANNUUS.286_sample_MAF0.03
+
+args = commandArgs(trailingOnly = TRUE)
+TPED <- args[1]
+TFAM <- args[2]
+SAVE_DIR <- args[3]
 
 
-
-fread("/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/hybrid_prediction/SAM_introgression_donor_ANNUUS.286_sample_MAF0.03.tped") -> data
-fread("/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/hybrid_prediction/SAM_introgression_donor_ANNUUS.286_sample_MAF0.03.tfam") %>% 
+fread(TPED) -> data
+fread(TFAM) %>% 
   select(V1) -> IDs
-
 
 registerDoParallel(cores=2)
 seq(5,ncol(data),2) -> SAMPLES
@@ -21,7 +22,6 @@ for (i in SAMPLES) {
   SAMPLES1[SAMPLES1 != i] -> SAMPLES1
   for (j in SAMPLES1) {
     result <- select(data,1:4)
-    #foreach(i=1:100, .combine='rbind', .errorhandling='stop') %dopar% {
     for (r in 1:100) {
       data %>%
         select(1:4,
@@ -53,7 +53,8 @@ for (i in SAMPLES) {
     }
     
     fwrite(result,
-           paste0("/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/hybrid_prediction/Crosses/",
+           paste0(SAVE_DIR,
+                  "/",
                   IDs[which(SAMPLES==i),1],
                   "_",
                   IDs[which(SAMPLES==j),1],
@@ -63,7 +64,8 @@ for (i in SAMPLES) {
     
     result %>%
       select(1:4) %>%
-      fwrite(paste0("/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/hybrid_prediction/Crosses/",
+      fwrite(paste0(SAVE_DIR,
+                    "/",
                     IDs[which(SAMPLES==i),1],
                     "_",
                     IDs[which(SAMPLES==j),1],
@@ -82,15 +84,14 @@ for (i in SAMPLES) {
              X4 = 0,
              X5 = 0,
              X6 = -9) %>%
-      fwrite(paste0("/Users/mojtabajahani/Documents/Projects/Linkage_drag/New_method/hybrid_prediction/Crosses/",
+      fwrite(paste0(SAVE_DIR,
+                    "/",
                     IDs[which(SAMPLES==i),1],
                     "_",
                     IDs[which(SAMPLES==j),1],
                     ".tfam"),
              sep = "\t",
              col.names = F)
-      
-    
   }
   
 }
