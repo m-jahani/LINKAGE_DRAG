@@ -1,5 +1,7 @@
 # LINKAGE_DRAG
 
+https://www.pnas.org/doi/10.1073/pnas.2205783119
+
 [HA412v2_chromosome.txt](https://github.com/m-jahani/LINKAGE_DRAG/blob/main/HA412v2_chromosome.txt)
 ```
 Each chromosome length for Ha412v2.0 refrence genome
